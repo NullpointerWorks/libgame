@@ -14,6 +14,8 @@
 			
 	<target name="com" depends="compile">
 		<jar destfile="${bin.dir}/libnpw-game-${game-version}.jar">
+	        <fileset dir="bin/" includes="module-info.class" />
+	        <fileset dir="src/" includes="module-info.java" />
 	        <fileset dir="bin/" includes="com/nullpointerworks/game/**/*.class" />
 	        <fileset dir="bin/" includes="exp/nullpointerworks/game/**/*.class" />
 	        <fileset dir="src/" includes="com/nullpointerworks/game/**/*.java" />
