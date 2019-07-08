@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Ant build script for the game library
+-->
+<project default="com">
+	<property name="bin.dir" value="D:/Development/Java/lib/npw/" />
+	
+	<property name="game-version" value="1.0.12" />
+	
+	<target name="compile">
+		<javac includeantruntime="false" srcdir="./src/com/nullpointerworks/" destdir="bin/" />
+		<javac includeantruntime="false" srcdir="./src/exp/nullpointerworks/" destdir="bin/" />
+	</target>
+			
+	<target name="com" depends="compile">
+		<jar destfile="${bin.dir}/libnpw-game-${game-version}.jar">
+	        <fileset dir="bin/" includes="com/nullpointerworks/game/**/*.class" />
+	        <fileset dir="bin/" includes="exp/nullpointerworks/game/**/*.class" />
+	        <fileset dir="src/" includes="com/nullpointerworks/game/**/*.java" />
+	        <fileset dir="src/" includes="exp/nullpointerworks/game/**/*.java" />
+	    </jar>
+	</target>
+	
+</project>
