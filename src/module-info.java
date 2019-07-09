@@ -1,7 +1,7 @@
 /**
- * @since 1.0
+ * @version 1.0.12
  */
-module com.nullpointerworks.game
+module libnpw.game
 {
 	requires transitive java.desktop;
 	exports com.nullpointerworks.game;
