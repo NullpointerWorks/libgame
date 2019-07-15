@@ -13,7 +13,8 @@ package com.nullpointerworks.game;
  * = No delta time. Each render has equal time spacing.<br>
  * - Not good on machines that experience frequent interruptions.<br>
  * - CPU intensive on some OS.<br>
- * 
+ * @author Michiel Drost - Nullpointer Works
+ * @since 1.0.0
  */
 public abstract class Fixed implements Runnable, Loop
 {

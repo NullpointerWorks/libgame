@@ -5,7 +5,8 @@
  */
 package com.nullpointerworks.game;
 
-/** Variable time stepping<br>
+/** 
+ * Variable time stepping<br>
  * <br>
  * + Render and game logic speed capped for consistency on different machines.<br>
  * + High granularity, render updates after changes take place.<br>
@@ -13,6 +14,8 @@ package com.nullpointerworks.game;
  * = No interpolation available.<br>
  * - Not good for games or simulations, like those using physics,
  *   which requires small time steps but don't need to be immediately rendered.<br>
+ * @author Michiel Drost - Nullpointer Works
+ * @since 1.0.0
  */
 public abstract class Variable implements Runnable, Loop 
 {

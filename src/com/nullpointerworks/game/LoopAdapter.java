@@ -8,13 +8,18 @@ package com.nullpointerworks.game;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
+/**
+ * An AWT {@code WindowListener} and {@code LoopListener} combination. 
+ * This adapter may be added to a {@code Window} object for windowing 
+ * event queues. 
+ * @author Michiel Drost - Nullpointer Works
+ * @since 1.0.0
+ * @see WindowListener
+ * @see LoopListener
+ */
 public abstract class LoopAdapter implements WindowListener, LoopListener
 {
-	public abstract void onInit();
-	public abstract void onUpdate(double dt);
-	public abstract void onRender(double l);
-	public abstract void onDispose();
-	
+	@Override
 	public void windowClosing(WindowEvent evt) 
 	{
 		onDispose();
@@ -22,26 +27,20 @@ public abstract class LoopAdapter implements WindowListener, LoopListener
 	}
 
 	@Override
-	public void windowOpened(WindowEvent e)
-	{}
+	public void windowOpened(WindowEvent e) {}
 
 	@Override
-	public void windowClosed(WindowEvent e)
-	{}
+	public void windowClosed(WindowEvent e) {}
 
 	@Override
-	public void windowIconified(WindowEvent e)
-	{}
+	public void windowIconified(WindowEvent e) {}
 
 	@Override
-	public void windowDeiconified(WindowEvent e)
-	{}
+	public void windowDeiconified(WindowEvent e) {}
 
 	@Override
-	public void windowActivated(WindowEvent e)
-	{}
+	public void windowActivated(WindowEvent e) {}
 
 	@Override
-	public void windowDeactivated(WindowEvent e)
-	{}
+	public void windowDeactivated(WindowEvent e) {}
 }

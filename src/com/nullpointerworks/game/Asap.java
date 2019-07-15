@@ -5,6 +5,11 @@
  */
 package com.nullpointerworks.game;
 
+/**
+ * The ASAP loop is a minimalistic implementation of a game loop. 
+ * @author Michiel Drost - Nullpointer Works
+ * @since 1.0.0
+ */
 public abstract class Asap implements Runnable, Loop
 {
 	private Thread thread;

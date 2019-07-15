@@ -5,6 +5,13 @@
  */
 package com.nullpointerworks.game;
 
+/**
+ * A game loop interface for extra methods to implement aside 
+ * from those available in {@code LoopListener}. 
+ * @author Michiel Drost - Nullpointer Works
+ * @since 1.0.0
+ * @see LoopListener
+ */
 public interface Loop extends LoopListener
 {
 	public final long	MILLI 	= 1000;			// 10^3
@@ -15,8 +22,29 @@ public interface Loop extends LoopListener
 	public final double inv_MICRO 	= 1d/1000000d;		// 10^-6
 	public final double inv_NANO 	= 1d/1000000000d;	// 10^-9
 	
+	/**
+	 * Start the game loop thread.
+	 * @since 1.0.0
+	 */
 	public void start();
+	
+	/**
+	 * Stop the game loop thread.
+	 * @since 1.0.0
+	 */
 	public void stop();
+	
+	/**
+	 * Set the desired frames per second.
+	 * @param fps - the desired frames per second
+	 * @since 1.0.0
+	 */
 	public void setTargetFPS(int fps);
+	
+	/**
+	 * Set the desired amount of updates per second.
+	 * @param hertz - the desired amount of updates per second
+	 * @since 1.0.0
+	 */
 	public void setTargetHz(double hertz);
 }
