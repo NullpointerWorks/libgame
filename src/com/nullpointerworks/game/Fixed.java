@@ -5,44 +5,33 @@
  */
 package com.nullpointerworks.game;
 
-/** synchronization fixed time stepping<br><br>
+/** 
+ * The Fixed loop is an extendible game loop class that provides between-update frame interpolation. It's best suites for heavy game logic and simulations. 
+ * <br><br>
+ * It provides fixed time stepping and it may update more frequent to compensate for lost time in the previous cycle. Though this can make it appear to run faster or slower at times(like in the ASAP game loop), this is solved by utilizing between-update frame interpolation, which enabled for precise stepping between each update. The disadvantage of this type of loop is that is can be CPU intensive on some machines. Applications using a fixed game loop will probably not run well on machines that experience frequent interruptions.
  * 
- * + Consistent render time across different machines.<br>
- * + Has interpolation<br>
- * + Good for math heavy games.<br>
- * = No delta time. Each render has equal time spacing.<br>
- * - Not good on machines that experience frequent interruptions.<br>
- * - CPU intensive on some OS.<br>
  * @author Michiel Drost - Nullpointer Works
  * @since 1.0.0
  */
 public abstract class Fixed implements Runnable, Loop
 {
 	private Thread thread;
-	
 	private double game_hertz;
 	private int game_fps;
 	private long ideal_render_time;
 	private long ideal_update_time;
 	private double inv_ideal_update_time;
 	private double inv_game_hertz;
-	
 	private boolean running = true;
 	
-	// =================================================
-	
-	/*
-	 * Set the target renders per second.
-	 */
+	@Override
 	public void setTargetFPS(int fps) 
 	{
 		game_fps = fps;
 		ideal_render_time = NANO / game_fps;
 	}
 	
-	/*
-	 * Set the target updates per second.
-	 */
+	@Override
 	public void setTargetHz(double hertz) 
 	{
 		game_hertz 				= hertz;
@@ -51,28 +40,20 @@ public abstract class Fixed implements Runnable, Loop
 		inv_ideal_update_time 	= 1d / ideal_update_time;
 	}
 	
-	// =================================================
-	
 	@Override
 	public void start()
 	{
 		thread = new Thread(this);
 		thread.run();
 	}
-	
-	/*
-	 * Terminates the program.
-	 */
+
+	@Override
 	public void stop()
 	{
 		running = false;
 	}
-	
-	// =================================================
-	
-	/*
-	 * Start the program.
-	 */
+
+	@Override
 	public void run() 
 	{
 		long nanotime_curr;

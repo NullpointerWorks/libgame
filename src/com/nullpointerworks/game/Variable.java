@@ -6,14 +6,13 @@
 package com.nullpointerworks.game;
 
 /** 
- * Variable time stepping<br>
- * <br>
- * + Render and game logic speed capped for consistency on different machines.<br>
- * + High granularity, render updates after changes take place.<br>
- * + Provides delta time to provide equal update speeds on various machines.<br>
- * = No interpolation available.<br>
- * - Not good for games or simulations, like those using physics,
- *   which requires small time steps but don't need to be immediately rendered.<br>
+ * The Variable game loop is an extendible class that provide high time stepping granularity. It's great for lightweight games that require accurate time stepping at high frame rates. 
+ * <br><br>
+ * Provides high time granularity since every single update is followed by a render call. Update and render logic is capped at a specific frame rate to make it consistent on different machines. The time between updates will likely vary depending on the power of the host machine. This variable time step will be passed as an argument when the {@code onUpdate(double)} method is invoked.<br>
+ * Despite the advantages this game loop brings, it has no interpolation between frames. This makes it not well suites for heavy game logic and/or physics simulations that require high granularity every update, but do not requires to be rendered immediately after. 
+ * 
+ * <br><br>
+ * This game loop has {@code setTargetHz(double)} disabled. To set the desired frame rate use {@code setTargetFPS(int)}. Also, the {@code onRender(double)} method has been implemented to be blank. The update and render event call only occur once each cycle, so rendering can also be done at the end of the update method. Though not required, it's safe to override it.
  * @author Michiel Drost - Nullpointer Works
  * @since 1.0.0
  */
@@ -24,26 +23,22 @@ public abstract class Variable implements Runnable, Loop
 	private int target_update = 30; 
 	private long ideal_time = NANO / target_update;
 	private long nanotime_prev;
-
-	// =================================================
 	
-	/**
-	 * Set the target frames rendered per second
-	 */
 	@Override
 	public void setTargetFPS(int fps) 
 	{
 		target_update = fps;
 		ideal_time = NANO / target_update;
 	}
-	
+
+	/**
+	 * This method has been disabled for this {@code Loop} implementation. Use {@code setTargetFPS(int)} instead.
+	 */
 	@Override
 	public void setTargetHz(double hertz) 
 	{
 		
 	}
-	
-	// =================================================
 	
 	@Override
 	public void start()
@@ -52,19 +47,12 @@ public abstract class Variable implements Runnable, Loop
 		thread.run();
 	}
 	
-	/**
-	 * Terminates the loop after the last render call.
-	 */
+	@Override
 	public void stop()
 	{
 		running = false;
 	}
-
-	// =================================================
 	
-	/**
-	 * Start the program.
-	 */
 	@Override
 	public void run()
 	{

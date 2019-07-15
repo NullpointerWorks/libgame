@@ -7,12 +7,19 @@ package com.nullpointerworks.game.event;
 
 import com.nullpointerworks.game.LoopListener;
 
+/** 
+ * The Fixed game loop class provides between-update frame interpolation. It's best suites for heavy game logic and simulations. 
+ * <br><br>
+ * It provides fixed time stepping and it may update more frequent to compensate for lost time in the previous cycle. Though this can make it appear to run faster or slower at times(like in the ASAP game loop), this is solved by utilizing between-update frame interpolation, which enabled for precise stepping between each update. The disadvantage of this type of loop is that is can be CPU intensive on some machines. Applications using a fixed game loop will probably not run well on machines that experience frequent interruptions.
+ * 
+ * @author Michiel Drost - Nullpointer Works
+ * @since 1.0.0
+ */
 public class FixedLoop implements Runnable
 {
-	private final long NANO 		= 1_000_000_000;	// 10^9
+	private final long NANO = 1_000_000_000;	// 10^9
 	
 	private Thread thread;
-	
 	private double game_hertz;
 	private int game_fps;
 	private long ideal_render_time;
@@ -21,18 +28,25 @@ public class FixedLoop implements Runnable
 	private double inv_game_hertz;
 	private boolean running = true;
 	private LoopListener e;
-	
-	public FixedLoop(LoopListener el, int fps, double hz)
+
+	/**
+	 * Creates a new {@code FixedLoop} object that drives the provided {@code LoopListener} event methods.
+	 * @param looplistener - the loop event listener to listen
+	 * @param fps - the desired frames per second
+	 * @param hertz - the desired amount of updates per second
+	 * @since 1.0.0
+	 */
+	public FixedLoop(LoopListener looplistener, int fps, double hertz)
 	{
-		e = el;
+		e = looplistener;
 		setTargetFPS(fps);
-		setTargetHz(hz);
+		setTargetHz(hertz);
 	}
 	
-	// =================================================
-	
-	/*
-	 * Set the target renders per second.
+	/**
+	 * Set the desired frames per second.
+	 * @param fps - the desired frames per second
+	 * @since 1.0.0
 	 */
 	public void setTargetFPS(int fps) 
 	{
@@ -40,8 +54,10 @@ public class FixedLoop implements Runnable
 		ideal_render_time = NANO / game_fps;
 	}
 	
-	/*
-	 * Set the target updates per second.
+	/**
+	 * Set the desired amount of updates per second.
+	 * @param hertz - the desired amount of updates per second
+	 * @since 1.0.0
 	 */
 	public void setTargetHz(double hertz) 
 	{
@@ -50,28 +66,27 @@ public class FixedLoop implements Runnable
 		ideal_update_time 		= (long)((double)NANO * inv_game_hertz);
 		inv_ideal_update_time 	= 1d / ideal_update_time;
 	}
-	
-	// =================================================
-	
+
+	/**
+	 * Start the game loop in a new thread.
+	 * @since 1.0.0
+	 */
 	public void start()
 	{
 		thread = new Thread(this);
 		thread.start();
 	}
-	
-	/*
-	 * Terminates the program.
+
+	/**
+	 * Stops the main game loop thread.
+	 * @since 1.0.0
 	 */
 	public void stop()
 	{
 		running = false;
 	}
 	
-	// =================================================
-	
-	/*
-	 * Start the program.
-	 */
+	@Override
 	public void run() 
 	{
 		long nanotime_curr;

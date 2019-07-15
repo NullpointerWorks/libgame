@@ -6,19 +6,20 @@
 package com.nullpointerworks.game;
 
 /**
- * The ASAP loop is a minimalistic implementation of a game loop. 
+ * The ASAP(As Soon As Possible) loop is an extendible class for a minimalistic implementation of a game loop. The key advantage of this loop is it's simplicity with very little overhead time. It's great for general purpose applications or games that don't depend on timing accuracy. 
+ * <br><br>
+ * It has fixed time stepping and updates may occur more frequent to compensate for lost time. When an update occurs it will also call {@code onRender(double)} afterwards. This low granularity of update time can sometimes make it appear faster or slower on different machines. To increase time granularity, either increase the frame rate, or use a different type of game loop. This implementation does not provide any means of interpolating between rendering. This makes it not well suites for simulations. 
+ * <br><br>
+ * This game loop has {@code setTargetHz(double)} disabled. To set the desired frame rate use {@code setTargetFPS(int)}.
  * @author Michiel Drost - Nullpointer Works
  * @since 1.0.0
  */
 public abstract class Asap implements Runnable, Loop
 {
 	private Thread thread;
-	
 	private boolean running 	= false;
 	private double UPDATE_CAP 	= 1d / 60d;
 	private int SLEEP_TIME 		= (int)(UPDATE_CAP*1000d);
-	
-	// =================================================
 	
 	@Override
 	public void setTargetFPS(int fps) 
@@ -27,13 +28,14 @@ public abstract class Asap implements Runnable, Loop
 		SLEEP_TIME	= (int)(UPDATE_CAP*1000d) - 1;
 	}
 	
+	/**
+	 * This method has been disabled for this {@code Loop} implementation. Use {@code setTargetFPS(int)} instead.
+	 */
 	@Override
 	public void setTargetHz(double hertz)
 	{
 		
 	}
-	
-	// =================================================
 	
 	@Override
 	public void start()
@@ -47,8 +49,6 @@ public abstract class Asap implements Runnable, Loop
 	{
 		running = false;
 	}
-	
-	// =================================================
 	
 	@Override
 	public void run()
@@ -68,7 +68,6 @@ public abstract class Asap implements Runnable, Loop
 			c_Time = System.nanoTime() * inv_NANO;
 			d_Time = c_Time - p_Time;
 			p_Time = c_Time;
-			
 			s_Time += d_Time;
 			
 			while(s_Time >= UPDATE_CAP)

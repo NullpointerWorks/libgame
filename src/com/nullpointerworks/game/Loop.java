@@ -23,13 +23,13 @@ public interface Loop extends LoopListener
 	public final double inv_NANO 	= 1d/1000000000d;	// 10^-9
 	
 	/**
-	 * Start the game loop thread.
+	 * Start the game loop in a new thread.
 	 * @since 1.0.0
 	 */
 	public void start();
 	
 	/**
-	 * Stop the game loop thread.
+	 * Stops the main game loop thread.
 	 * @since 1.0.0
 	 */
 	public void stop();
