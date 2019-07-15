@@ -1,5 +1,6 @@
 /**
  * @version 1.0.12
+ * @author Michiel Drost - Nullpointer Works
  */
 module libnpw.game
 {
