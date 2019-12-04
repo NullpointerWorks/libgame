@@ -44,7 +44,7 @@ public abstract class Variable implements Runnable, Loop
 	public void start()
 	{
 		thread = new Thread(this);
-		thread.run();
+		thread.start();
 	}
 	
 	@Override

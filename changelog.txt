@@ -1,0 +1,10 @@
+next update: 1.0.1
+
+bugfix: 
+com.nullpointerworks.game.Asap
+com.nullpointerworks.game.Fixed
+com.nullpointerworks.game.Variable
+- Fixed a bug where starting the loop thread didn't actually start...
+
+1.0.0:
+initial release

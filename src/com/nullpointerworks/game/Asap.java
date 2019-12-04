@@ -41,7 +41,7 @@ public abstract class Asap implements Runnable, Loop
 	public void start()
 	{
 		thread = new Thread(this);
-		thread.run();
+		thread.start();
 	}
 	
 	@Override
