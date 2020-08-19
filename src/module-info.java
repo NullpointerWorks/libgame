@@ -4,7 +4,7 @@
  * Use is subject to license terms.
  */
 /**
- * @version 1.0.0
+ * @version 1.0.1
  * @author Michiel Drost - Nullpointer Works
  */
 module libnpw.game
