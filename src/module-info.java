@@ -1,9 +1,8 @@
-/*
- * Creative Commons - Attribution, Share Alike 4.0 
- * Nullpointer Works (2019)
- * Use is subject to license terms.
- */
 /**
+ * This is free and unencumbered software released into the public domain.
+ * (http://unlicense.org/)
+ * Nullpointer Works (2021)
+ *
  * @version 1.0.1
  * @author Michiel Drost - Nullpointer Works
  */
